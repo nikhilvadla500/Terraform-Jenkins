@@ -14,8 +14,8 @@ resource "google_compute_subnetwork" "subnet" {
 }
 
 # 3. Google Cloud Storage Bucket
-resource "google_storage_bucket" "terraform-nikhil" {
-  name     = "terraform-nikhil"
+resource "google_storage_bucket" "terraform_nikhil" {
+  name     = "terraform-backend-nikhil"
   location = "US"
 }
 
