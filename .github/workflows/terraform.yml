@@ -15,37 +15,15 @@ jobs:
       GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
 
     steps:
-      # Checkout the repository
+      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Set up Terraform
+      # Step 2: Set up Terraform
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.8.5  # you can adjust to your version
+          terraform_version: 1.8.5  # You can change this if needed
 
-      # Authenticate to Google Cloud using the service account key
-      - name: Set up Google Cloud credentials
-        run: |
-          echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" > $GOOGLE_APPLICATION_CREDENTIALS
-          gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
-
-      # Initialize Terraform
-      - name: Terraform Init
-        run: terraform init
-
-      # Terraform Plan
-      - name: Terraform Plan
-        run: terraform plan
-
-      # Terraform Apply (only on main branch)
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve
-
-      # Cleanup step (optional)
-      - name: Cleanup
-        if: always()
-        run: echo "Cleaning up..."
+      # Step 3: Configure Google Cloud credentials
+      #
